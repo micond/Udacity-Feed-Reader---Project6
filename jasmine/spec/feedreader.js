@@ -37,6 +37,7 @@ $(function() {
             }
         });
 
+
         /* A test that loops through each feed
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
@@ -48,8 +49,10 @@ $(function() {
             }
         });
     });
-    
+
+
     /* A new test suite named "The menu" */
+
     describe('The menu', function() {
         var icon = $('.menu-icon-link'),
             body = $('body');
@@ -88,7 +91,10 @@ $(function() {
          * Remember, loadFeed() is asynchronous so this test will require
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
-        
+
+
+
+
         beforeEach(function(done) {
             loadFeed(0, done);
         });
@@ -102,26 +108,25 @@ $(function() {
     describe('New Feed Selection', function() {
         var entries,
             entries2;
-
-        /* A test that ensures when a new feed is loaded
-         * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
-         */
-        // console.log(entries);
-
         beforeEach(function(done) {
-            entries = $('.feed').html();
-            loadFeed(1, function() {
-                done();
+            loadFeed(0, function() {
+                entries = $('.feed').html();
+                loadFeed(1, function() {
+                    done();
+                });
             });
-            // console.log(entries);
+        });
+
+        afterEach(function(){
+          loadFeed(2);
         });
 
         it('loadFeed function that the content actually changes', function(done) {
             entries2 = $('.feed').html();
             // console.log(entries2);
-            expect(entries).not.toBe(entries2);
+            expect(entries).not.toEqual(entries2);
             done();
+
         });
     });
 }());
